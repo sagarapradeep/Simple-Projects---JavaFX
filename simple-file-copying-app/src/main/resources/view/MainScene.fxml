@@ -11,18 +11,18 @@
 <AnchorPane prefHeight="448.0" prefWidth="600.0" stylesheets="@../css/MainSceneStyleSheet.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep10.app.controller.MainSceneController">
    <children>
       <Button fx:id="btnReset" layoutX="27.0" layoutY="111.0" mnemonicParsing="false" onAction="#btnResetOnAction" prefWidth="150.0" text="Reset" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="111.0" />
-      <VBox layoutX="27.0" layoutY="185.0" spacing="30.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="27.0">
+      <VBox layoutX="27.0" layoutY="185.0" prefHeight="99.0" prefWidth="546.0" spacing="30.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="27.0">
          <children>
             <HBox spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
-                  <TextField fx:id="txtSource" editable="false" prefWidth="450.0" promptText="Select Source File" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="btnSelectFileSource" mnemonicParsing="false" onAction="#btnSelectFileSourceOnAction" prefWidth="100.0" text="Brows" />
+                  <TextField fx:id="txtSource" editable="false" prefHeight="30.0" prefWidth="450.0" promptText="Select Source File" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnSelectFileSource" mnemonicParsing="false" onAction="#btnSelectFileSourceOnAction" prefHeight="30.0" prefWidth="100.0" text="Brows" />
                </children>
             </HBox>
-            <HBox prefHeight="24.0" prefWidth="472.0" spacing="10.0" VBox.vgrow="ALWAYS">
+            <HBox spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
-                  <TextField fx:id="txtDestination" editable="false" prefWidth="450.0" promptText="Select Destination Directory" />
-                  <Button fx:id="btnSelectFileDestination" mnemonicParsing="false" onAction="#btnSelectFileDestinationOnAction" prefWidth="100.0" text="Brows" />
+                  <TextField fx:id="txtDestination" editable="false" prefHeight="30.0" prefWidth="450.0" promptText="Select Destination Directory" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnSelectFileDestination" mnemonicParsing="false" onAction="#btnSelectFileDestinationOnAction" prefHeight="30.0" prefWidth="100.0" text="Brows" />
                </children>
             </HBox>
          </children>
