@@ -22,7 +22,10 @@ public class AppInitializer extends Application {
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
-        primaryStage.sizeToScene();
+        primaryStage.setWidth(600);
+        primaryStage.setHeight(400);
+        primaryStage.setResizable(false);
+        primaryStage.setTitle("Simple File Copying App");
         primaryStage.show();
         primaryStage.centerOnScreen();
     }

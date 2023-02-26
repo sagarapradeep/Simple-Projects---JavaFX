@@ -1,7 +1,5 @@
 package lk.ijse.dep10.app.controller;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,12 +8,12 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Optional;
 
 public class MainSceneController {
 
+    public TextField txtSource;
+    public TextField txtDestination;
     @FXML
     private Button btnCopy;
 
@@ -32,12 +30,6 @@ public class MainSceneController {
     private Label lblProgressBar;
 
     @FXML
-    private Label lblSelectFileDestination;
-
-    @FXML
-    private Label lblSelectFileSource;
-
-    @FXML
     private ProgressBar prg;
 
 
@@ -48,8 +40,8 @@ public class MainSceneController {
     public void initialize() {
         btnReset.fire();
 
-        lblSelectFileDestination.setText("No Such File or Directory");
-        lblSelectFileSource.setText("No Such File or Directory");
+        txtSource.setText("No Such File or Directory");
+        txtDestination.setText("No Such File or Directory");
         btnCopy.setDisable(true);
 
     }
@@ -57,9 +49,11 @@ public class MainSceneController {
     @FXML
     void btnResetOnAction(ActionEvent event) {
         btnCopy.setDisable(true);
+//        btnReset.getScene().getWindow().setHeight(400);
 
-        lblSelectFileDestination.setText("No Such File or Directory");
-        lblSelectFileSource.setText("No Such File or Directory");
+
+        txtDestination.setText("No Such File or Directory");
+        txtSource.setText("No Such File or Directory");
 
     }
 
@@ -74,14 +68,13 @@ public class MainSceneController {
                 return;
             }
         }
+        btnCopy.getScene().getWindow().setHeight(473);
 
 
         /*progress bar*/
         Task<Void>task=new Task<Void>() {
             FileInputStream fis = new FileInputStream(sourceFile);
             FileOutputStream fos = new FileOutputStream(newFile);
-
-
 
             @Override
             protected Void call() throws Exception {
@@ -98,12 +91,14 @@ public class MainSceneController {
 
                     fos.write(buffer, 0, read);
                     write+=read;
+                    int progress =(int) (write * 100 / sourceFile.length());
 
                     updateProgress(write, sourceFile.length());
+                    updateMessage(String.format("%d%s", progress, "%"));
 
 
                 }
-                System.out.println("task completed");
+
                 fos.close();
                 fis.close();
                 return null;
@@ -114,25 +109,18 @@ public class MainSceneController {
 
 
         prg.progressProperty().bind(task.progressProperty());
+        lblProgressBar.textProperty().bind(task.messageProperty());
 
         task.setOnSucceeded(workerStateEvent -> {
             prg.progressProperty().unbind();
             new Alert(Alert.AlertType.INFORMATION,"Completed").showAndWait();
 
             prg.setProgress(0.0);
+            btnCopy.getScene().getWindow().setHeight(400);
             btnReset.fire();
             btnSelectFileSource.requestFocus();
 
         });
-
-
-
-
-
-
-
-
-
 
 
 
@@ -154,12 +142,9 @@ public class MainSceneController {
 
 
 
-        lblSelectFileDestination.setText(newFile.toString());
+        txtDestination.setText(newFile.toString());
 
-//        if (Objects.equals(destinationDirectory, sourceFile.getParentFile().toString())) {
-//            lblSelectFileDestination.setText("Same folder selected please select seperated folder");
-//            return;
-//        }
+
         btnCopy.setDisable(false);
 
 
@@ -177,7 +162,7 @@ public class MainSceneController {
         if (sourceFile == null) {
             return;
         }
-        lblSelectFileSource.setText(sourceFile.toString());
+        txtSource.setText(sourceFile.toString());
 
 
     }
