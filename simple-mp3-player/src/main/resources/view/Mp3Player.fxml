@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" onDragDropped="#rootOnDragDropped" onDragOver="#rootOnDragOver" prefHeight="479.0" prefWidth="600.0" stylesheets="@../css/Mp3PlayerStyleSheet.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep10.ap.controller.Mp3PlayerController">
+   <children>
+      <HBox alignment="CENTER" layoutY="96.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.bottomAnchor="264.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="96.0">
+         <children>
+            <VBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <ImageView fx:id="imgOpenFile" fitHeight="30.0" fitWidth="30.0" onMouseEntered="#imgOpenFileOnMouseEntered" onMouseExited="#imgOpenFileOnMouseExited" onMousePressed="#imgOpenFileOnMousePressed" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="lblMediaFile" alignment="CENTER" prefHeight="25.0" text="No media file selected">
+                     <font>
+                        <Font size="11.5" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="38.0" layoutY="325.0" spacing="60.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="325.0">
+         <children>
+            <ImageView fx:id="imgPlayOrPause" fitHeight="30.0" fitWidth="30.0" onMouseEntered="#imgPlayOrPauseOnMouseEntered" onMouseExited="#imgPlayOrPauseOnMouseExited" onMousePressed="#imgPlayOrPauseOnMousePressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgStop" fitHeight="30.0" fitWidth="30.0" onMouseEntered="#imgStopOnMouseEntered" onMouseExited="#imgStopOnMouseExited" onMousePressed="#imgStopOnMousePressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgLoop" fitHeight="30.0" fitWidth="30.0" onMouseEntered="#imgLoopOnMouseEntered" onMouseExited="#imgLoopOnMouseExited" onMousePressed="#imgLoopOnMousePressed" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="20.0" layoutY="381.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Slider fx:id="sldVolume" majorTickUnit="2.0" max="1.0" value="0.5" />
+            <ImageView fx:id="imgMuteUnMute" fitHeight="30.0" fitWidth="30.0" onMouseEntered="#imgMuteUnMuteOnMouseEntered" onMouseExited="#imgMuteUnMuteOnMouseExited" onMousePressed="#imgMuteUnMuteOnMousePressed" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="40.0" layoutY="277.0" spacing="2.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Slider fx:id="sldTime" prefWidth="260.0" />
+            <VBox>
+               <children>
+                  <Label fx:id="lblTime" alignment="CENTER" prefWidth="60.0" text="Label" />
+                  <Label fx:id="lblTime1" alignment="CENTER" prefWidth="60.0" text="Seconds">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Label fx:id="lblTitle" alignment="CENTER" layoutX="282.0" layoutY="49.0" text="Simple Mp3 Player" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="69.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

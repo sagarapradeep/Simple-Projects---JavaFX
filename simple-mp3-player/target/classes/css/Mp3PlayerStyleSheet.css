@@ -1,0 +1,16 @@
+
+#lblTitle {
+    -fx-font-family: Ubuntu;
+    -fx-font-weight: bold;
+    -fx-text-emphasis: #232334;
+
+}
+#root{
+    -fx-background-color: #c4b2d3;
+}
+#lblTime#lblTime1 {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-family: Ubuntu;
+}
+
