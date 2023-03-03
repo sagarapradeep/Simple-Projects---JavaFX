@@ -7,10 +7,7 @@ Simple mp3 player app - frond-end  designed using javafx scene builder and back-
 Simple-text editor(FeatherPad 1.0.0) is a simple JavaFX used text editor app. Text field developed using html text editor and app consists with basic text styling methods like bold,italic, letter sizing and etc. For the print option ,used itext library for pdf file generation from html text. File related operations like save, save as and close options modified using algorithms in back-end to make the FeatherPad 1.0.0 more user friendly.
 
 
-=======
-# Simple-Projects-JavaFX
-Simple file copying app - Front end designed using javaFX and backend programmed using java 11.Can perform copying action to files from any directory to any directory.
->>>>>>> 78d6dcff856f5ee54141a968f137a78d34c09f31
+
 
 
 
