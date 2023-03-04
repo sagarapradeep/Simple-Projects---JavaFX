@@ -1,0 +1,14 @@
+#lblTitle {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-font-family: Ubuntu;
+    -fx-text-fill: #080838;
+    -fx-background-color: lightblue;
+}
+
+#btnReset{
+    -fx-background-color: lightgreen;
+}
+#btnSelectFileDestination,#btnSelectFileSource,#btnCopy{
+    -fx-background-color: lightblue;
+}
