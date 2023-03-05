@@ -3,12 +3,14 @@ package lk.ijse.dep10.client.controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import lk.ijse.dep10.shared.Header;
 import lk.ijse.dep10.shared.Message;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -38,6 +40,21 @@ public class ClientViewController {
         connectToServer();        //connect to the server
 
         readServerResponse();       //read server responses
+
+        Platform.runLater(this::closeSocket);
+    }
+
+    private void closeSocket() {
+        txtMessage.getScene().getWindow().setOnCloseRequest(event->{
+            try {
+                oos.writeObject(new Message(Header.EXIT, null));
+                oos.flush();
+                if(!clientSocket.isClosed()) clientSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     private void readServerResponse() {
@@ -46,6 +63,7 @@ public class ClientViewController {
                 ois = new ObjectInputStream(clientSocket.getInputStream());
 
                 while (true) {
+
                     Message msg = (Message) ois.readObject();
                     if (msg.getHeader() == Header.USER) {
                         ArrayList<String> ipAddressList = (ArrayList<String>) msg.getBody();
@@ -63,8 +81,15 @@ public class ClientViewController {
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Connection lost");
+                if (e instanceof EOFException) {
+                    Platform.runLater(() -> {
+                        new Alert(Alert.AlertType.ERROR, "Connection lost, try again!").showAndWait();
+                        Platform.exit();
+                    });
+                } else if (!clientSocket.isClosed()) {
+                    e.printStackTrace();
+                }
+
 
             }
 
@@ -82,8 +107,8 @@ public class ClientViewController {
 
 
         } catch (Exception e) {
-            System.out.println("Error when connecting");
             e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to connect to the server").showAndWait();
             Platform.exit();
         }
 
@@ -97,7 +122,7 @@ public class ClientViewController {
             oos.flush();
             txtMessage.clear();
         } catch (Exception e) {
-            System.out.println("Filed to send the message");
+            new Alert(Alert.AlertType.ERROR, "Failed to connect to the server, try again").show();
             e.printStackTrace();
         }
 

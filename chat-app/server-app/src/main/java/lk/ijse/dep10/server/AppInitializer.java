@@ -1,9 +1,11 @@
 package lk.ijse.dep10.server;
 
+import javafx.scene.control.Alert;
 import lk.ijse.dep10.server.util.User;
 import lk.ijse.dep10.shared.Header;
 import lk.ijse.dep10.shared.Message;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -24,7 +26,7 @@ public class AppInitializer {
         while (true) {
             System.out.println("Waiting for new connection!");
             Socket localSocket = serverSocket.accept();
-            System.out.println("message came!");
+            System.out.println("new User Came!");
             User user = new User(localSocket);
             userArrayList.add(user);
             System.out.println("New User " + localSocket.getRemoteSocketAddress() + " joined!");
@@ -34,9 +36,9 @@ public class AppInitializer {
 
                 try {
                     sendChatHistoryToNewLogger(user);       //send chat history to newly logged user
-                    System.out.println("befire broadcast users");
+
                     broadCastUsers();                   //broadcast user list
-                    System.out.println("after broadcast users");
+
                     ObjectInputStream ois = user.getObjectInputStream();
 
                     while (true) {
@@ -44,19 +46,39 @@ public class AppInitializer {
                         if (msg.getHeader() == Header.MESSAGE) {
                             chatHistory += String.format("%s :%s%s", user.getRemoteIpAddress(), msg.getBody(),"\n");
                             broadCastChatHistory();             //broadcast chat history
-
+                        } else if (msg.getHeader() == Header.EXIT) {
+                            removeUser(user);
+                            return;
                         }
                     }
 
 
                 } catch (Exception e) {
+                    removeUser(user);
+                    if (e instanceof EOFException) return;
+
                     e.printStackTrace();
-                    System.out.println("failed to read the message!");
                 }
 
             }).start();
 
 
+        }
+
+    }
+
+    private static void removeUser(User user) {
+        if (userArrayList.contains(user)) {
+            userArrayList.remove(user);
+            broadCastUsers();
+
+            if (!user.getLocalSocket().isClosed()) {
+                try {
+                    user.getLocalSocket().close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
     }
@@ -70,7 +92,6 @@ public class AppInitializer {
                     oos.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    System.out.println("failed to send the chat history");
                 }
 
             }).start();

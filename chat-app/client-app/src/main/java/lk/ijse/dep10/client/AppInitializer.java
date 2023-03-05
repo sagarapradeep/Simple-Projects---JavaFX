@@ -15,10 +15,18 @@ public class AppInitializer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+
         primaryStage.setScene(new Scene(new FXMLLoader
-                (this.getClass().getResource("/view/ClientView.fxml")).load()));
+                (this.getClass().getResource("/view/LoginView.fxml")).load()));
+
+        primaryStage.setWidth(600);
+        primaryStage.setHeight(550);
+        primaryStage.setResizable(false);
         primaryStage.show();
         primaryStage.centerOnScreen();
+
+
+
 
     }
 }
