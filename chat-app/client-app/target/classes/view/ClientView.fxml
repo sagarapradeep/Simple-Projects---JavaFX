@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep10.client.controller.ClientViewController">
+   <children>
+      <TextArea fx:id="txtMessageHistory" layoutX="14.0" layoutY="14.0" prefHeight="328.0" prefWidth="421.0" />
+      <ListView fx:id="lstUsers" layoutX="448.0" layoutY="14.0" prefHeight="328.0" prefWidth="138.0" />
+      <TextField fx:id="txtMessage" layoutX="14.0" layoutY="356.0" onAction="#txtMessageOnAction" prefHeight="33.0" prefWidth="421.0" />
+   </children>
+</AnchorPane>
