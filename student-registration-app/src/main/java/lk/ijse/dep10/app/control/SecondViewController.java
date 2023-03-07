@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 
 public class SecondViewController {
@@ -47,10 +46,12 @@ public class SecondViewController {
     private TextField txtGuardianOccupation;
 
     private Scene mainScene;        //create field for main scene
+    private MainViewController ctrl;
 
 
-    public void init(Scene mainScene) {
+    public void init(Scene mainScene, MainViewController mainViewController) {
         this.mainScene = mainScene;
+        this.ctrl = mainViewController;
 
     }
 
@@ -78,12 +79,8 @@ public class SecondViewController {
 
     public void btnBack1OnAction(ActionEvent actionEvent) throws IOException {
 
-        URL fxmlFile = this.getClass().getResource("/view/MainView.fxml");
-        FXMLLoader fxmlLoader = new FXMLLoader(fxmlFile);
-        AnchorPane mainPane = fxmlLoader.load();
 
-        MainViewController mainViewController = fxmlLoader.getController();
-        mainViewController.init(btnBack1.getScene());
+        ctrl.init(btnBack1.getScene());
 
         Stage stage = (Stage) btnBack1.getScene().getWindow();
         stage.setScene(mainScene);

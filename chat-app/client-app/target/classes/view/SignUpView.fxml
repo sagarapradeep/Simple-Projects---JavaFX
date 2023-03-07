@@ -52,20 +52,20 @@
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="53.0" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="120.0" text="Gender" />
-                  <RadioButton fx:id="rdoMale" mnemonicParsing="false" text="Male" />
-                  <RadioButton fx:id="rdoBirthDay" mnemonicParsing="false" text="Female" />
+                  <RadioButton fx:id="rdoMale" mnemonicParsing="false" onAction="#rdoMaleOnAction" text="Male" />
+                  <RadioButton fx:id="rdoFemale" mnemonicParsing="false" onAction="#rdoFemaleOnAction" text="Female" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="95.0" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="120.0" text="Country" />
-                  <ComboBox fx:id="cmbCountryList" prefHeight="24.0" prefWidth="180.0" />
+                  <ComboBox fx:id="cmbCountryList" onAction="#cmbCountryListOnAction" prefHeight="24.0" prefWidth="180.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="53.0" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="120.0" text="BirthDay" />
-                  <DatePicker fx:id="dtBirthDay" prefHeight="24.0" prefWidth="180.0" HBox.hgrow="ALWAYS" />
+                  <DatePicker fx:id="dtBirthDay" onAction="#dtBirthDayOnAction" prefHeight="24.0" prefWidth="180.0" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="53.0" spacing="10.0" VBox.vgrow="ALWAYS">

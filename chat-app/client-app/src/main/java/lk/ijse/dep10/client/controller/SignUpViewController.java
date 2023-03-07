@@ -20,7 +20,7 @@ public class SignUpViewController {
     public PasswordField txtRePws;
     public PasswordField txtPws;
     public ComboBox cmbCountryList;
-    
+
     @FXML
     private Button btnSignUp;
 
@@ -28,7 +28,7 @@ public class SignUpViewController {
     private DatePicker dtBirthDay;
 
     @FXML
-    private RadioButton rdoBirthDay;
+    private RadioButton rdoFemale;
 
     @FXML
     private RadioButton rdoMale;
@@ -45,13 +45,15 @@ public class SignUpViewController {
     boolean isNameValid = false;
     boolean isUserNameValid = false;
     boolean isEnteredPswValid = false;
+    boolean isReEnteredPwsValid = false;
 
 
     public void initialize() {
 
+
         settingComboBox();          //setting combo box with countries
 
-        btnSignUp.setDisable(true);     //set signup button disable
+//        btnSignUp.setDisable(true);     //set signup button disable
 
         txtName.textProperty().addListener((value, previous, current) -> {          //name validation
             txtName.getStyleClass().remove("invalid");
@@ -59,6 +61,7 @@ public class SignUpViewController {
 
             if ((name.length() < 5) || current.isBlank()) {
                 txtName.getStyleClass().add("invalid");
+                isNameValid=false;
                 return;
             }
 
@@ -66,6 +69,7 @@ public class SignUpViewController {
                 if (!((Character.isLetter(c)) || (Character.isSpaceChar(c)))) {
                     System.out.println("in");
                     txtName.getStyleClass().add("invalid");
+                    isNameValid=false;
                     return;
                 }
             }
@@ -78,6 +82,7 @@ public class SignUpViewController {
             txtUserName.getStyleClass().remove("invalid");
             if (current.isBlank() || current.length() < 5) {
                 txtUserName.getStyleClass().add("invalid");
+                isUserNameValid = false;
                 return;
             }
             isUserNameValid = true;
@@ -89,19 +94,68 @@ public class SignUpViewController {
             String password = current.strip();
             if (current.isBlank() || password.length() < 8) {
                 txtPws.getStyleClass().add("invalid");
+                isEnteredPswValid=false;
                 return;
             }
             enteredPsw = current.strip();
             isEnteredPswValid = true;
-
         });
+
+        txtRePws.textProperty().addListener((value,previous,current)->{
+            txtRePws.getStyleClass().remove("invalid");
+            if (!Objects.equals(enteredPsw, current)) {
+                txtRePws.getStyleClass().add("invalid");
+                txtRePws.requestFocus();
+                isReEnteredPwsValid = false;
+                return;
+            }
+            isReEnteredPwsValid = true;
+        });
+
+
 
 
     }
 
     @FXML
     void btnSignUpOnAction(ActionEvent event) {
+        finalValidationCheck();
 
+    }
+
+    private void finalValidationCheck() {
+        if (!isNameValid) {
+            txtName.selectAll();
+            txtName.requestFocus();
+            return;
+        } else if (!isUserNameValid) {
+            txtUserName.selectAll();
+            txtUserName.requestFocus();
+            return;
+        } else if ((rdoFemale.isSelected()&&rdoMale.isSelected())||!(rdoFemale.isSelected()||rdoMale.isSelected()) ){
+            rdoMale.requestFocus();
+            System.out.println();
+            return;
+        }
+        else if (cmbCountryList.getValue()==null) {
+            cmbCountryList.requestFocus();
+            return;
+        }
+        else if (dtBirthDay.getValue() == null) {
+            dtBirthDay.requestFocus();
+            return;
+        } else if (!isEnteredPswValid) {
+            txtRePws.selectAll();
+            txtRePws.clear();
+            txtPws.selectAll();
+            txtPws.requestFocus();
+            return;
+        } else if (!isReEnteredPwsValid) {
+            txtRePws.selectAll();
+            txtRePws.requestFocus();
+            return;
+        }
+        System.out.println("All good!");
     }
 
 
@@ -132,10 +186,13 @@ public class SignUpViewController {
     }
 
     public void txtRePwsOnAction(ActionEvent actionEvent) {
-        if (!Objects.equals(enteredPsw, txtRePws.getText())) {
+        if (!isReEnteredPwsValid) {
             txtRePws.selectAll();
             txtRePws.requestFocus();
+            return;
         }
+        isReEnteredPwsValid = true;
+
     }
 
     public void settingComboBox() {
@@ -149,6 +206,31 @@ public class SignUpViewController {
 
         }
 
+    }
+
+    public void rdoMaleOnAction(ActionEvent actionEvent) {
+       if (rdoMale.isSelected()&&!rdoFemale.isSelected()){
+           cmbCountryList.requestFocus();
+       }
+    }
+
+    public void rdoFemaleOnAction(ActionEvent actionEvent) {
+        if (!rdoMale.isSelected()&&rdoFemale.isSelected()){
+            cmbCountryList.requestFocus();
+        }
+    }
+
+    public void cmbCountryListOnAction(ActionEvent actionEvent) {
+        if (!cmbCountryList.getItems().isEmpty()) {
+            dtBirthDay.requestFocus();
+
+        }
+    }
+
+    public void dtBirthDayOnAction(ActionEvent actionEvent) {
+        if (dtBirthDay.getValue() != null) {
+            txtPws.requestFocus();
+        }
     }
 }
 

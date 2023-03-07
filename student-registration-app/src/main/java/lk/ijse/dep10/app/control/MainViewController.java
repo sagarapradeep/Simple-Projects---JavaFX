@@ -86,6 +86,7 @@ public class MainViewController {
         System.out.println("init called");
         this.secondScene = scene;
         System.out.println(secondScene);
+        isSecondVieEntered=false;
 
     }
 
@@ -100,7 +101,7 @@ public class MainViewController {
             AnchorPane secondRoot = fxmlLoader.load();
 
             SecondViewController secondViewController = fxmlLoader.getController();
-            secondViewController.init(btnNext.getScene());
+            secondViewController.init(btnNext.getScene(), this);
             isSecondVieEntered = true;
 
             stage.setScene(new Scene(secondRoot));
